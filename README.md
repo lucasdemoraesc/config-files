@@ -2,8 +2,6 @@
 
 Este repositório contém configurações de algumas ferramentas que utilizo rotineiramente, ou esporadicamente.
 
-## :bookmark: Sumário
-
 ### Linux
 - :framed_picture: [Conky](Linux/Conky)
 - :computer_mouse: [Libinput Gestures](Linux/Libinput)
