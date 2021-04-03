@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1
+Type=Application
+Name=Moc
+Comment=Music On Console
+Exec=guake --show -e mocp
+Icon=musicbrainz
+Categories=Audio;Multimedia;
+Terminal=false
+StartupNotify=false
+NoDisplay=false

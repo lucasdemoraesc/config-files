@@ -1,0 +1,48 @@
+##############################################
+##Arquivo de configuração Conky             ##
+##Mostrar o que o audacious anda fazendo :) ##
+##############################################
+
+## Configurações...
+	background yes
+	update_interval 1.0
+## Fontes...
+	use_xft yes
+	xftalpha 1.0
+	override_utf8_locale yes
+	use_spacer right
+	xftfont Coda
+## Posição e alinhamento...
+	alignment top_bottom
+	gap_x 5
+	gap_y 3
+## Propriedades da janela...
+	own_window yes
+	own_window_type desktop
+	own_window_transparent yes
+	own_window_argb_visual yes
+	own_window_argb_value 0
+	own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+## Tamanho...
+	maximum_width 460
+	minimum_size 460
+## Buffers...
+	no_buffers yes
+	double_buffer yes
+## Predefinições...
+	default_color 2395FA
+	color1 a7a7a7
+
+TEXT
+##---------------------------Cabeçalho do Conky-----------------------------##
+${image /home/correalinux/.conky/audacious/logo.png -p 0,1 -s 100x20}${color0}${offset 101}:  ${color1}${audacious_status}${alignr}${font Ani:size=13}${color}correalinux
+##-------------------------- BARRA DE PROGRESSO ----------------------------##
+${voffset -15}${color}${audacious_bar 3}
+##-------------------------- STATUS DO AUDACIOUS ---------------------------##
+${voffset -5}${font}${color0}Now Playing:  ${color1}${scroll left 55 ${audacious_title 300}}
+##---------------------------- TIMER DA MÚSICA -----------------------------##
+${color0}Time: ${color1} ${audacious_position} / ${audacious_length}
+##-------------------------------- PLAYLIST --------------------------------##
+${color0}Playlist: ${color1} ${audacious_playlist_position} / ${audacious_playlist_length}
+##---------------------------------- VOLUME --------------------------------##
+${color0}Volume: ${color1} ${audacious_main_volume}%

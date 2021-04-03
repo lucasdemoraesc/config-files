@@ -1,0 +1,86 @@
+## CONKYRC Personalizado 
+## Byslackjeff
+
+font Sans:size=8
+background yes
+use_xft yes
+xftalpha 0.9
+update_interval 1.0
+total_run_times 0
+own_window yes
+own_window_type normal
+own_window_argb_visual yes
+own_window_argb_value 0
+own_window_transparent yes
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+own_window_colour 000000
+minimum_size 220 5
+double_buffer yes
+maximum_width 200
+draw_shades yes
+draw_outline no
+draw_borders yes
+draw_graph_borders yes
+default_color 1AC33A
+default_shade_color black
+default_outline_color 1AC33A
+alignment top_right
+gap_x 8
+gap_y 30
+no_buffers yes
+uppercase no # set to yes if you want all text to be in uppercase
+cpu_avg_samples 2
+override_utf8_locale yes
+
+
+TEXT
+${font sans-serif:normal:size=10} ${alignc} ${sysname} ${exec uname -n} 18.03 (Sylvia) ${font}
+${font sans-serif:normal:size=8} ${alignc} Area de Trabalho ${desktop} ${font}
+
+${color}SISTEMA ${hr 1}${color0}
+Sistema Operacional: ${alignr} ${sysname} ${exec uname -n}
+Usuario: $alignr${USER}
+Maquina: $alignr$nodename
+Tempo Ativo: $alignr$uptime
+
+${color}MEMORIA ${hr 1}${color0}
+Ram ${alignr}$mem / $memmax ($memperc%)
+${color}${membar 4}
+
+${color}PROCESSOS TOP ${hr 1}${color0}
+Highest CPU $alignr CPU% MEM%
+${top name 1}$alignr${top cpu 1}${top mem 1}
+${top name 2}$alignr${top cpu 2}${top mem 2}
+${top name 3}$alignr${top cpu 3}${top mem 3}
+
+Highest MEM $alignr CPU% MEM%
+${top_mem name 1}$alignr${top_mem cpu 1}${top_mem mem 1}
+${top_mem name 2}$alignr${top_mem cpu 2}${top_mem mem 2}
+${top_mem name 3}$alignr${top_mem cpu 3}${top_mem mem 3}
+
+${color}SISTEMA DE ARQUIVOS ${hr 1}${color0}
+sda1 ${alignr}${fs_used /media/correalinux/Novo volume/} / ${fs_size /media/correalinux/Novo volume/} Livre:${fs_free_perc /media/correalinux/Novo volume/}%
+${color}${fs_bar 4 /media/correalinux/Novo volume/}${color0}
+sda2 ${alignr}${fs_used /} / ${fs_size /home} Livre:${fs_free_perc /home}%
+${color}${fs_bar 4 /home}${color0}
+swap ${alignr}${swap} / ${swapmax} Usado:${swapperc}%
+${color}${swapbar 4}
+
+USO DE DISCO ${hr 1}${color0}
+/dev/sda2 ${alignr} /dev/sda1
+${color}${diskiograph /dev/sda6 25,107 1FFB18 1A9F03} ${alignr}${diskiograph /dev/sda1 25,107 1A9F03 1FFB18}
+${color0}${diskio /dev/sda6} ${alignr}${diskio /dev/sda1}
+
+${color}REDE ${hr 1}${color0}
+Wlp1s0 ${alignr}IP:${addr wlp1s0}
+Down ${downspeed wlp1s0} ${alignr}Up ${upspeed wlp1s0}
+${color}${downspeedgraph wlp1s0 25,107 1A9F03 1FFB18} ${alignr}${upspeedgraph wlp1s0 25,107 1FFB18 1A9F03}${color0}
+Total: ${totaldown wlp1s0} ${alignr}Total: ${totalup wlp1s0}
+
+Enp2s0f5 ${alignr}IP:${addr enp2s0f5}
+Down ${downspeed enp2s0f5} ${alignr}Up ${upspeed enp2s0f5}
+${color}${downspeedgraph enp2s0f5 25,107 1FFB18 1A9F03} ${alignr}${upspeedgraph enp2s0f5 25,107 1A9F03 1FFB18}${color0}
+Total: ${totaldown enp2s0f5} ${alignr}Total: ${totalup enp2s0f5}
+
+${color}DATE ${hr 1}${color0}
+${exec date}${voffset 3}

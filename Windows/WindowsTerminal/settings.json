@@ -1,0 +1,162 @@
+{
+	"$schema": "https://aka.ms/terminal-profiles-schema",
+	"defaultProfile": "{00000000-0000-0000-0000-000000012345}",
+	"copyOnSelect": false,
+	"copyFormatting": false,
+	"profiles": {
+		"defaults": {
+			"useAcrylic": true,
+			"acrylicOpacity": 0.75,
+			"padding": "0, 0, 0, 0",
+			"colorScheme": "Campbell",
+			"background": "#111",
+			"cursorColor": "#FFFFFF",
+			"cursorShape": "filledBox",
+			"fontFace": "FiraCode NF",
+			"fontSize": 11,
+			"historySize": 9001,
+			"bellStyle": "none",
+			"snapOnInput": true,
+			"closeOnExit": true
+		},
+		"list": [
+			{
+				"guid": "{00000000-0000-0000-0000-000000012345}",
+				"commandline": "\"%PROGRAMFILES%\\git\\bin\\bash.exe\" --login -i -l",
+				"startingDirectory": "%USERPROFILE%",
+				"icon": "%PROGRAMFILES%\\git\\mingw64\\share\\git\\git-for-windows.ico",
+				"name": "Git Bash"
+			},
+			{
+				"guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+				"name": "Windows PowerShell",
+				"commandline": "powershell.exe",
+				"hidden": false
+			},
+			{
+				"guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
+				"name": "Prompt de comando",
+				"commandline": "cmd.exe",
+				"hidden": false
+			},
+			{
+				"guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",
+				"name": "Azure Cloud Shell",
+				"source": "Windows.Terminal.Azure",
+				"hidden": false
+			}
+		]
+	},
+	"schemes": [
+		{
+			"name": "Ubuntu_Dark",
+			"background": "#2E3436",
+			"foreground": "#B5BBAE",
+			"black": "#2E3436",
+			"blue": "#3465A4",
+			"cyan": "#06989A",
+			"green": "#4E9A06",
+			"purple": "#75507B",
+			"red": "#AE5E5E",
+			"white": "#B5BBAE",
+			"yellow": "#C4A000",
+			"brightBlack": "#696B67",
+			"brightBlue": "#729FCF",
+			"brightCyan": "#2EC3C3",
+			"brightGreen": "#79C32E",
+			"brightPurple": "#AD7FA8",
+			"brightRed": "#F49797",
+			"brightWhite": "#FBFBFB",
+			"brightYellow": "#FCE94F"
+		},
+		{
+			"name": "OneHalfDark",
+			"background": "#0C0C0C",
+			"black": "#0C0C0C",
+			"blue": "#1170b5",
+			"brightBlack": "#5A6374",
+			"brightBlue": "#61AFEF",
+			"brightCyan": "#56B6C2",
+			"brightGreen": "#98C379",
+			"brightPurple": "#C678DD",
+			"brightRed": "#E06C75",
+			"brightWhite": "#DCDFE4",
+			"brightYellow": "#E5C07B",
+			"cyan": "#56B6C2",
+			"foreground": "#DCDFE4",
+			"green": "#98C379",
+			"purple": "#C678DD",
+			"red": "#E06C75",
+			"white": "#DCDFE4",
+			"yellow": "#E5C07B"
+		},
+		{
+			"name": "Dracula",
+			"background": "#282A36",
+			"black": "#21222C",
+			"blue": "#1170b5",
+			"brightBlack": "#6272A4",
+			"brightBlue": "#61AFEF",
+			"brightCyan": "#A4FFFF",
+			"brightGreen": "#69FF94",
+			"brightPurple": "#FF92DF",
+			"brightRed": "#FF6E6E",
+			"brightWhite": "#FFFFFF",
+			"brightYellow": "#FFFFA5",
+			"cyan": "#8BE9FD",
+			"foreground": "#F8F8F2",
+			"green": "#50FA7B",
+			"purple": "#FF79C6",
+			"red": "#FF5555",
+			"white": "#F8F8F2",
+			"yellow": "#F1FA8C"
+		},
+		{
+			"name": "GitBash",
+			"background": "#000000",
+			"black": "#0C0C0C",
+			"blue": "#6060ff",
+			"brightBlack": "#767676",
+			"brightBlue": "#3B78FF",
+			"brightCyan": "#61D6D6",
+			"brightGreen": "#16C60C",
+			"brightPurple": "#B4009E",
+			"brightRed": "#E74856",
+			"brightWhite": "#F2F2F2",
+			"brightYellow": "#F9F1A5",
+			"cyan": "#3A96DD",
+			"foreground": "#bfbfbf",
+			"green": "#00a400",
+			"purple": "#bf00bf",
+			"red": "#bf0000",
+			"white": "#ffffff",
+			"yellow": "#bfbf00",
+			"grey": "#bfbfbf"
+		}
+	],
+	"actions": [
+		{
+			"command": {
+				"action": "copy",
+				"singleLine": false
+			},
+			"keys": "ctrl+c"
+		},
+		{
+			"command": "paste",
+			"keys": "ctrl+v"
+		},
+		{
+			"command": "find",
+			"keys": "ctrl+shift+f"
+		},
+		{
+			"command": {
+				"action": "splitPane",
+				"split": "auto",
+				"splitMode": "duplicate"
+			},
+			"keys": "alt+shift+d"
+		}
+	]
+}

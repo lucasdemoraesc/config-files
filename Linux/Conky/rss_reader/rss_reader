@@ -1,0 +1,70 @@
+####################################################
+## Arquivo de configuração Conky                  ##
+## Leitor de Feeds RSS (Necessita Curl instalado) ##
+## Fontes Usadas: Coda, URW Chancery L            ##
+####################################################
+
+## Configuações...
+	background yes
+	update_interval 1.0
+	update_interval_on_battery 5.0
+## Configuração de fontes...
+	use_xft yes
+	xftfont URW Chancery L:size=13
+	xftalpha 1.0
+	override_utf8_locale yes
+	use_spacer right
+## Posição e alinhamento...
+	alignment top_left
+	gap_x 8
+	gap_y 30
+## Propriedades da janela...
+	own_window yes
+	own_window_transparent yes
+	own_window_type desktop
+	own_window_argb_visual yes
+	own_window_argb_value 0
+	own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+## Tamanho da janela...
+	minimum_size 10 10
+	maximum_width 381
+## Propriedades das bordas e cor padrão...
+	draw_borders yes
+	stippled_borders 5
+	draw_outline yes
+	default_color 1AC33A
+## Buffers...
+	no_buffers yes
+	double_buffer yes
+## Predefinições...
+	default_color 1AC33A
+
+#vol (tópicos): http://feeds.feedburner.com/forum-vivaolinux?format=xml
+#vol (artigos, dicas, etc): https://www.vivaolinux.com.br/index.rdf
+#distrowach: https://distrowatch.com/news/dw.xml
+#devin: http://www.devin.com.br/feed/
+#br_linux: https://br-linux.org/feed/?q=node/feed
+#sempre_update: https://sempreupdate.com.br/category/artigos/feed/
+#Mundo_GNU (EDPS): https://edpsblog.wordpress.com/feed/
+
+TEXT
+########## CONFIGURAÇÕES REFERENTES AO LEITOR DE FEEDS ##########
+## RSS 1
+${font}${voffset -5}RSS Feed: ${rss http://feeds.feedburner.com/forum-vivaolinux?format=xml 30 feed_title} ${stippled_hr}
+${font Coda:size=9}${color0}${voffset -3}${rss http://feeds.feedburner.com/forum-vivaolinux?format=xml 1 item_titles 10}
+## RSS 2
+
+${font}${color}RSS Feed: ${rss https://www.vivaolinux.com.br/index.rdf 30 feed_title} ${stippled_hr}
+${font Coda:size=9}${color0}${voffset -3}${rss https://www.vivaolinux.com.br/index.rdf 1 item_titles 10}
+## RSS 3
+
+${font}${color}RSS Feed: ${rss https://edpsblog.wordpress.com/feed/ 30 feed_title} ${stippled_hr}
+${font Coda:size=9}${color0}${voffset -3}${rss https://edpsblog.wordpress.com/feed/ 1 item_titles 10}
+
+########### CONFIGURAÇÕES REFERENTES AO MONITOR DE REDE ###########
+${font}${color}Network: WLP1S0 ${stippled_hr}
+${font New Rocker:size=9}${color EFEFEF}${voffset -3}SSID: ${wireless_essid wlp1s0}${alignr}FREQUENCY: ${wireless_freq wlp1s0}
+IP: ${addr wlp1s0}${alignr}MODE: ${wireless_mode wlp1s0}
+MAC: ${wireless_ap wlp1s0}${alignr}
+QUALITY: ${if_gw}${wireless_link_qual_perc wlp1s0}${offset -8}%${else} 0%${endif}${alignr}
+${color}${wireless_link_bar 3,336 wlp1s0}${voffset -10}
