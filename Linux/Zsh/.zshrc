@@ -128,3 +128,16 @@ export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/g
 export NVM_DIR="/home/lucas/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
+# VARIÁVEIS DO ANDROID
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+
+# NÃO ARMAZENAR COMANDO COM ERRO
+zshaddhistory() { 
+	whence ${${(z)1}[1]} >| /dev/null || return 1 
+}
+
