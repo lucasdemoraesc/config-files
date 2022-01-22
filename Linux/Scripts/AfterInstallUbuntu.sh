@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Comando para minimizar ao clicar: gsettings set org.gnome.shell.extensions.dash-to-dock click-action 'minimize-or-previews'
+
 # Script para configuração do Ubuntu
 
 AtualizarPacotes() {
