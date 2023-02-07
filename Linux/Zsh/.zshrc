@@ -108,7 +108,6 @@ SPACESHIP_PROMPT_ORDER=(
   hg            # Mercurial section (hg_branch  + hg_status)
   exec_time     # Execution time
   line_sep      # Line break
-  vi_mode       # Vi-mode indicator
   jobs          # Background jobs indicator
   exit_code     # Exit code section
   char          # Prompt character
@@ -116,11 +115,11 @@ SPACESHIP_PROMPT_ORDER=(
 SPACESHIP_USER_SHOW=always
 SPACESHIP_PROMPT_ADD_NEWLINE=false
 SPACESHIP_CHAR_SYMBOL="➜"
-SPACESHIP_CHAR_SUFFIX=" "
+SPACESHIP_CHAR_SUFFIX=""
 
 # NÃO ARMAZENAR COMANDO COM ERRO
-function zshaddhistory() { 
-	whence ${${(z)1}[1]} >| /dev/null || return 1 
+function zshaddhistory() {
+	whence ${${(z)1}[1]} >| /dev/null || return 1
 }
 
 ### Added by Zinit's installer
@@ -137,22 +136,37 @@ autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 ### End of Zinit's installer chunk
 
+# Zinit plugins load
 zinit light zdharma-continuum/fast-syntax-highlighting
 zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-completions
 zinit light zdharma-continuum/history-search-multi-word
+zinit load marlonrichert/zsh-hist
 
+# This script will look-up command in the database and suggest
+# installation of packages available from the repository
 source /etc/zsh_command_not_found
 
 # PATH
-export SGBD=SQLITE
+# VARIÁVEIS DO ANDROID
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 
+# VARIÁVEIS DO DOTNET
+export PATH="$PATH:/home/lucas/.dotnet"
+export PATH="$PATH:/home/lucas/.dotnet/tools"
+export DOTNET_ROOT="$(dirname $(which dotnet))"
 export NVM_DIR="$HOME/.nvm"
+
+# VARIÁVEIS DO NVM
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # zsh parameter completion for the dotnet CLI
-
 _dotnet_zsh_complete()
 {
   local completions=("$(dotnet complete "$words")")
@@ -161,3 +175,18 @@ _dotnet_zsh_complete()
 }
 
 compctl -K _dotnet_zsh_complete dotnet
+
+set +H
+
+# Configurações do histórico
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_FIND_NO_DUPS
+setopt HIST_SAVE_NO_DUPS
+
+# Load Angular CLI autocompletion.
+if [ -x "$(command -v ng)" ]; then
+  source <(ng completion script)
+fi

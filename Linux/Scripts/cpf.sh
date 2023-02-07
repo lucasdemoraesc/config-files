@@ -66,6 +66,7 @@ segundoDig=$((11-$restDois))
 # exibe o CPF gerado e formatado.
 echo -e "\033[1;32m$a.$b.$c-$primeiroDig$segundoDig\033[0m"
 [ $OSTYPE != "msys" ] && echo -e "$a.$b.$c-$primeiroDig$segundoDig" | xclip -selection c
+[ $OSTYPE == "msys" ] && echo -e "$a.$b.$c-$primeiroDig$segundoDig" | clip.exe
  # FINALIZA O SCRIPT
  exit 0;
 fi
