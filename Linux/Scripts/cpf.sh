@@ -1,7 +1,7 @@
 #!/bin/bash
 # ----------------------------------------------------------------------------
 # Gerador e Validador de CPF em Shell Script (Bash)
-# 
+#
 # Uso: ./cpf [cpf]
 # Ex.: ./cpf 552.056.731-09 # pode utilizar assim
 # ./cpf 55205673109 # pode utilizar assim
@@ -28,9 +28,9 @@ if [ -z $cpf ]; then
    b+=$(($RANDOM%9));
    c+=$(($RANDOM%9));
   done
-  
-  
-# estabelece o valor temporário do cpf, só pra poder gerar os digitos verificadores. 
+
+
+# estabelece o valor temporário do cpf, só pra poder gerar os digitos verificadores.
  cpf="$a$b$c"
 # array pra multiplicar com o 9(do 10 ao 2)primeiros caracteres do CPF, respectivamente.
 mulUm=(10 9 8 7 6 5 4 3 2)
@@ -39,40 +39,40 @@ mulUm=(10 9 8 7 6 5 4 3 2)
   do
     # gera a soma dos números posteriormente multiplicados
     let DigUm+=$(($(echo $cpf | cut -c$digito) * $(echo ${mulUm[$(($digito-1))]})))
-      
+
   done
-  
+
 # divide por 11
 restUm=$(($DigUm%11))
 # gera o primeiro digito subtraindo 11 menos o resto da divisão
 primeiroDig=$((11-$restUm))
 # caso o resto da divisão seja menor que 2
-[ $restUm -lt 2 ] && primeiroDig=0 
+[ $restUm -lt 2 ] && primeiroDig=0
 # atualizamos o valor do CPF já com um digito descoberto
 cpf="$a$b$c$primeiroDig"
 # agora um novo array pra multiplicar com o 10(do 11 ao 2) primeiros caracteres do CPF, respectivamente.
 mulDois=(11 10 9 8 7 6 5 4 3 2)
  for digitonew in {1..10}
   do
-    
-    let DigDois+=$(($(echo $cpf | cut -c$digitonew) * $(echo ${mulDois[$(($digitonew-1))]})))    
+
+    let DigDois+=$(($(echo $cpf | cut -c$digitonew) * $(echo ${mulDois[$(($digitonew-1))]})))
   done
 # também divide por 11
-restDois=$(($DigDois%11)) 
+restDois=$(($DigDois%11))
 # gera o segundo digito subtraindo 11 menos o resto da divisão
 segundoDig=$((11-$restDois))
 # caso o resto da divisão seja menor que 2
-[ $restDois -lt 2 ] && segundoDig=0 
+[ $restDois -lt 2 ] && segundoDig=0
 # exibe o CPF gerado e formatado.
 echo -e "\033[1;32m$a.$b.$c-$primeiroDig$segundoDig\033[0m"
-[ $OSTYPE != "msys" ] && echo -e "$a.$b.$c-$primeiroDig$segundoDig" | xclip -selection c
+[ $OSTYPE != "msys" ] && echo -ne "$a.$b.$c-$primeiroDig$segundoDig" | xclip -selection c
 [ $OSTYPE == "msys" ] && echo -e "$a.$b.$c-$primeiroDig$segundoDig" | clip.exe
  # FINALIZA O SCRIPT
  exit 0;
 fi
 ##############################################################################
 ##############################################################################
-# -- SE DIGITAR O PARÂMETRO, MAS A QUANTIDADE DE NÚMEROS SEJA MENOR QUE 11 -- 
+# -- SE DIGITAR O PARÂMETRO, MAS A QUANTIDADE DE NÚMEROS SEJA MENOR QUE 11 --
 ##############################################################################
 ##############################################################################
 # verificamos a quantidade de caracteres
@@ -83,11 +83,11 @@ total=$(echo $(($qtde-1)))
 if [ $total != 11 ]; then
  # informa o erro e mostra quantos caracteres têm.
  echo -e "\033[1;31mQuantidade de números diferente de \033[7;31m11\033[0m: Total:\033[1;35m $total\033[0m";
- 
+
  # finaliza o script
  exit 0;
 else
-# se passar, continua...daqui pra frente os comentários serão o mesmo da geração do CPF, 
+# se passar, continua...daqui pra frente os comentários serão o mesmo da geração do CPF,
 # mas nesse caso pra validar, pois só os dois últimos é que definem o CPF
 ##############################################################################
 ##############################################################################
@@ -97,21 +97,21 @@ else
 mulUm=(10 9 8 7 6 5 4 3 2)
  for digito in {1..9}
   do
-    
-    let DigUm+=$(($(echo $cpf | cut -c$digito) * $(echo ${mulUm[$(($digito-1))]})))    
+
+    let DigUm+=$(($(echo $cpf | cut -c$digito) * $(echo ${mulUm[$(($digito-1))]})))
   done
-  
+
 mulDois=(11 10 9 8 7 6 5 4 3 2)
  for digitonew in {1..10}
   do
-    
-    let DigDois+=$(($(echo $cpf | cut -c$digitonew) * $(echo ${mulDois[$(($digitonew-1))]})))    
+
+    let DigDois+=$(($(echo $cpf | cut -c$digitonew) * $(echo ${mulDois[$(($digitonew-1))]})))
   done
 restUm=$(($DigUm%11))
-[ $restUm -lt 2 ] && primeiroDig=0 
+[ $restUm -lt 2 ] && primeiroDig=0
 primeiroDig=$((11-$restUm))
 restDois=$(($DigDois%11))
-[ $restDois -lt 2 ] && segundoDig=0 
+[ $restDois -lt 2 ] && segundoDig=0
 segundoDig=$((11-$restDois))
  if [ $(echo $cpf | cut -c10) == $primeiroDig -a $(echo $cpf | cut -c11) == $segundoDig ]; then
   # se o CPF for válido.
@@ -120,5 +120,5 @@ segundoDig=$((11-$restDois))
   # informa quais seriam os dois últimos se o CPF estiver incorreto.
   echo -e "\033[1;31mCPF Inválido.\nOs dois Últimos números deveriam ser:\033[1;32m $primeiroDig$segundoDig\033[0m"
  fi
- 
+
 fi

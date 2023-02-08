@@ -1,78 +1,177 @@
 #!/bin/bash
 
-# Comando para minimizar ao clicar: gsettings set org.gnome.shell.extensions.dash-to-dock click-action 'minimize-or-previews'
+(
+	CPF_URL="https://raw.githubusercontent.com/lucasdemoraesc/config-files/main/Linux/Scripts/cpf.sh"
+	LMC_URL="https://raw.githubusercontent.com/lucasdemoraesc/config-files/main/Linux/Scripts/lmc.sh"
+	BASHRC_URL="https://raw.githubusercontent.com/lucasdemoraesc/config-files/main/Linux/.bashrc"
+	ZSHRC_URL="https://raw.githubusercontent.com/lucasdemoraesc/config-files/main/Linux/Zsh/.zshrc"
+	CHROME_URL="https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
 
-# Script para configuração do Ubuntu
-
-InstalarScriptLmcEGeracaoDeCpf() {
-	echo "📜 Instalando script cpf.sh"
-	CPF_URL="https://github.com/lucasdemoraesc/config-files/blob/main/Linux/Scripts/cpf.sh"
-	sudo wget -O /bin/cpf CPF_URL >> after-log.txt 2> after-error.txt
-	sudo chmod +x /bin/cpf >> after-log.txt 2> after-error.txt
-
-	echo "📜 Instalando script lmc.sh"
-	LMC_URL="https://github.com/lucasdemoraesc/config-files/blob/main/Linux/Scripts/lmc.sh"
-	sudo wget -O /bin/lmc LMC_URL >> after-log.txt 2> after-error.txt
-	sudo chmod +x /bin/lmc >> after-log.txt 2> after-error.txt
-}
-
-AtualizarPacotes() {
-	echo "🚀 Atualizando pacotes..."
-	sleep 1s
-	sudo apt-get update >> after-log.txt 2> after-error.txt
-	sudo apt-get upgrade >> after-log.txt 2> after-error.txt
-	sudo apt-get install -f >> after-log.txt 2> after-error.txt
-	sudo dpkg --configure -a >> after-log.txt 2> after-error.txt
-}
-
-RemoverProgramasInuteis() {
-	echo "🎠 Removendo aplicativos inúteis"
-	sleep 1s
-	sudo apt purge --remove \
+	RemoverProgramasInuteis() {
+		echo "🎠 Removendo aplicativos inúteis"
+		sudo apt-get purge --remove \
 		aisleriot \
 		gnome-font-viewer \
 		gnome-mahjongg \
 		gnome-mines \
 		gnome-sudoku \
 		rhythmbox \
-		shotwell \
-		>> after-log.txt 2> after-error.txt
-}
+		shotwell && echo -e "✅ Programas inúteis removidos com sucesso\n\n" || echo -e "❌ Falha ao remover programas inúteis\n\n"
+	}
 
-InstalarProgramasRepoOficial() {
-	echo "🛠️ Instalando aplicativos do repositório oficial"
-	sleep 1s
-	sudo apt install \
+	AtualizarPacotes() {
+		echo "🚀 Atualizando pacotes oficiais"
+		sudo apt-get update
+		sudo apt-get upgrade
+		sudo apt-get install -f
+		sudo dpkg --configure -a
+		echo -e "✅ Atualização de pacotes finalizada\n\n"
+	}
+
+	InstalarProgramasRepoOficial() {
+		echo "🛠️ Instalando aplicativos do repositório oficial"
+		sudo apt-get install \
 		neofetch \
-		nautilus-actions \
-		filemanager-actions \
-		filemanager-actions-doc \
+		guake \
 		flameshot \
-		grub-customizer \
 		gparted \
 		vim \
 		gnome-tweaks \
-		gnome-tweak-tool \
+		dconf-editor \
+		nautilus-admin \
+		nautilus-extension-gnome-terminal \
+		nautilus-sendto \
+		nautilus-share \
 		deborphan \
-		qbittorrent \
 		htop \
 		font-manager \
 		vlc \
 		wget \
-		>> after-log.txt 2> after-error.txt
-}
+		curl \
+		xclip && echo -e "✅ Aplicativos oficiais instalados com sucesso\n\n" || echo -e "❌ Falha ao instalar aplicativos oficiais\n\n"
+	}
 
-InstalarProgramasSnap() {
-	echo "📦️ Instalando pacotes snaps"
-	sleep 1s
-	snap install \
+	InstalarProgramasSnap() {
+		echo "📦️ Instalando pacotes snaps"
+		snap install \
 		spotify \
 		dbeaver-ce \
+		lepton \
+		cacher \
 		telegram-desktop \
 		postman \
 		discord \
 		emote \
-		skype \
-		bitwarden \
-		>> after-log.txt 2> after-error.txt
-}
+		bitwarden && echo -e "✅ Pacotes snap instalados com sucesso\n\n" || echo -e "❌ Falha ao instalar pacotes snap\n\n"
+	}
+
+	InstalarGrupCustomizer() {
+		echo "💥 Instalando Grub Customizer [PPA]"
+		sudo add-apt-repository ppa:danielrichter2007/grub-customizer
+		sudo apt-get update
+		sudo apt-get install grub-customizer && echo -e "✅ Grub Customizer instalado com sucesso\n\n" || echo -e "❌ Falha ao instalar Grub Customizer\n\n"
+	}
+
+	InstalarGoogleChrome() {
+		echo "🌐 Instalando Google Chrome [DEB]"
+		curl -o ~/Downloads/google-chrome-stable_current_amd64.deb $CHROME_URL --fail --show-error
+		if [ -e ~/Downloads/google-chrome-stable_current_amd64.deb ]; then
+			sudo dpkg -i ~/Downloads/google-chrome-stable_current_amd64.deb && rm -f ~/Downloads/google-chrome-stable_current_amd64.deb && echo -e "✅ Google Chrome instalado com sucesso\n\n" || echo -e "❌ Falha ao instalar o Google Chrome\n\n"
+		else
+			echo -e "❌ Falha ao instalar o Google Chrome, arquivo não baixado\n\n"
+		fi
+	}
+
+	InstalarVsCode() {
+		echo "🧑‍💻 Instalando Google Chrome [PPA]"
+		sudo apt-get install software-properties-common apt-transport-https wget -y
+		wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
+		sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+		sudo apt install code && echo -e "✅ VS Code instalado com sucesso\n\n" || echo -e "❌ Falha ao instalar VS Code\n\n"
+	}
+
+	ConfiguracoesBasicas() {
+		echo "⚙️ Executando configurações básicas"
+		curl -o ~/.bashrc $BASHRC_URL --fail --show-error && echo -e "✅ Bashrc atualizado com sucesso" || echo -e "❌ Falha ao atualizar Bashrc"
+		gsettings set org.gnome.shell.extensions.dash-to-dock click-action 'minimize-or-previews' && echo -e "✅ Minimze on click configurado\n\n" || echo -e "❌ Falha: Minimze on click não configurado\n\n"
+	}
+
+	ConfigurarGit() {
+		sudo apt-get install git
+		# Instalar git credencial manager...
+	}
+
+	ConfigurarDocker() {
+		echo "🐋 Instalando o Docker"
+		sudo apt-get remove docker docker-engine docker.io containerd runc
+		sudo apt-get update
+		sudo apt-get install \
+			ca-certificates \
+			curl \
+			gnupg \
+			lsb-release
+		sudo mkdir -p /etc/apt/keyrings
+		curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+		echo \
+			"deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+			$(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+		sudo apt-get update
+		sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+		if [ $? -eq 0 ]; then
+			echo "🐳 Docker instalado com sucesso"
+			if [ ! "$(getent group docker)" ]; then
+				sudo groupadd docker
+				sudo usermod -aG docker "$USER"
+				newgrp docker
+			fi
+			echo "📦️ Subindo container do Portainer"
+			sudo docker run -d -p 9000:9000 --name portainer --restart always -v /var/run/docker.sock:/var/run/docker.sock -v /home/lucas/.portainer/data:/data portainer/portainer-ce:latest
+			echo "📦️ Subindo container do Postgres"
+			sudo docker run --name postgres -e "POSTGRES_PASSWORD=123456" -p 5432:5432 -d postgres
+			echo -e "✅ Configuração do Docker finalizada\n\n"
+		else
+			echo -e "❌ Falha ao instalar o Docker, verifique os logs\n\n"
+		fi
+	}
+
+	ConfigurarZSH() {
+		echo "Todo"
+	}
+
+	ConfigurarDotnet() {
+		echo "Todo"
+	}
+
+	ConfigurarNode() {
+		echo "Todo"
+	}
+
+	ConfigurarAngular() {
+		echo "Todo"
+	}
+
+	InstalarFontes() {
+		echo "Todo"
+	}
+
+	InstalarScriptLmcEGeracaoDeCpf() {
+		echo "📜 Instalando script cpf.sh"
+		sudo curl -o /bin/cpf $CPF_URL --fail --show-error
+		sudo chmod +x /bin/cpf && echo -e "✅ Script cpf instalado com sucesso\n\n" || echo -e "❌ Falha ao dar permissão para /bin/cpf\n\n"
+
+		echo "📜 Instalando script lmc.sh"
+		sudo curl -o /bin/lmc $LMC_URL  --fail --show-error
+		sudo chmod +x /bin/lmc && echo -e "✅ Script lmc instalado com sucesso\n\n" || echo -e "❌ Falha ao dar permissão para /bin/lmc\n\n"
+	}
+
+	# RemoverProgramasInuteis;
+	# AtualizarPacotes;
+	# InstalarProgramasRepoOficial;
+	# InstalarProgramasSnap;
+	# InstalarGrupCustomizer;
+	InstalarGoogleChrome;
+	# InstalarScriptLmcEGeracaoDeCpf;
+	# ConfiguracoesBasicas;
+	# ConfigurarDocker;
+
+) 2>&1 | tee after-install.log

@@ -141,3 +141,8 @@ _dotnet_bash_complete()
 }
 
 complete -f -F _dotnet_bash_complete dotnet
+
+# Load Angular CLI autocompletion.
+if [ -x "$(command -v ng)" ]; then
+  source <(ng completion script)
+fi
