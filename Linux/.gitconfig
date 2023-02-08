@@ -2,13 +2,12 @@
 	name = Lucas Moraes
 	email = lucasdemoraesc@gmail.com
 [credential]
-	helper = 
+	helper =
 	helper = /usr/local/share/gcm-core/git-credential-manager-core
 	credentialStore = secretservice
+	helper =
+	helper = /home/lucas/.dotnet/tools/git-credential-manager
 [credential "https://dev.azure.com"]
 	useHttpPath = true
 [init]
 	defaultBranch = main
-[safe]
-	directory = /media/lucas/Arquivos/Projetos/TCC/Projeto/3. Desenvolvimento/3. Implementacao/comcer-frontend
-	directory = /media/lucas/Arquivos/Projetos/TCC/Projeto/3. Desenvolvimento/3. Implementacao/comcer-backend
