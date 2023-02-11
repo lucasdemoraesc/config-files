@@ -6,7 +6,7 @@
 	BASHRC_URL="https://raw.githubusercontent.com/lucasdemoraesc/config-files/main/Linux/.bashrc"
 	ZSHRC_URL="https://raw.githubusercontent.com/lucasdemoraesc/config-files/main/Linux/Zsh/.zshrc"
 	CHROME_URL="https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
-	VIMIX_URL="https://ppload-com.s3.eu-central-1.amazonaws.com/data/files/1460753224/Vimix-1080p.tar.xz?response-content-disposition=attachment%3B%2520Vimix-1080p.tar.xz&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIATLQUPBWASZL2ZPWI%2F20230208%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20230208T124701Z&X-Amz-SignedHeaders=host&X-Amz-Expires=60&X-Amz-Signature=1744b8f0012148914968b4611189c6d41d135d264290a7cd49b68d5e881f9634"
+	VIMIX_URL="https://github.com/lucasdemoraesc/config-files/raw/main/Linux/Grub/Vimix-1080p.tar.xz"
 
 	function RemoverProgramasInuteis() {
 		echo "🎠 Removendo aplicativos inúteis"
@@ -75,7 +75,7 @@
 			sudo apt-get update
 			sudo apt-get install grub-customizer && echo -e "✅ Grub Customizer instalado com sucesso" || echo -e "❌ Falha ao instalar Grub Customizer"
 			echo "Baixando tema Vimix"
-			# Baixar...
+			curl -Lo ~/Downloads/Vimix.tar.xz $VIMIX_URL --fail --show-error
 		fi
 	}
 
