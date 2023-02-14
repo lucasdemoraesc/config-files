@@ -10,6 +10,7 @@
 	CHROME_URL="https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
 	VIMIX_URL="https://github.com/lucasdemoraesc/config-files/raw/main/Linux/Grub/Vimix-1080p.tar.xz"
 	DOTNET_INSTALL_URL="https://dot.net/v1/dotnet-install.sh"
+	FONTES_URL="https://github.com/lucasdemoraesc/config-files/raw/main/Fontes/Fontes.tar.xz"
 
 	function RemoverProgramasInuteis() {
 		echo "🎠 Removendo aplicativos inúteis"
@@ -53,6 +54,7 @@
 		vlc \
 		wget \
 		curl \
+		ttf-mscorefonts-installer \
 		xclip && echo -e "✅ Aplicativos oficiais instalados com sucesso" || echo -e "❌ Falha ao instalar aplicativos oficiais"
 	}
 
@@ -130,8 +132,8 @@
 			sudo apt-get install git
 			if [ "$?" -eq 0 ]; then
 				echo -e "✅ Git instalado com sucesso, efetuando configurações básicas"
-				git config --global user.name "Lucas Corrêa" && echo -e "➡️ user.name = \"Lucas Corrêa\""
-				git config --global user.email "Lucas Corrêa" && echo -e "➡️ user.name = \"lucasdemoraesc@gmail.com\""
+				git config --global user.name "Lucas Moraes" && echo -e "➡️ user.name = \"Lucas Moraes\""
+				git config --global user.email "lucasdemoraesc@gmail.com" && echo -e "➡️ user.name = \"lucasdemoraesc@gmail.com\""
 				git config --global init.defaultBranch main && echo -e "➡️ init.defaultBranch = \"main\""
 			else
 				echo -e "❌ Falha ao instalar o Git"
@@ -203,7 +205,7 @@
 	}
 
 	function ConfigurarNode() {
-		if [ ! -x "$(command -v nvm)" ]; then
+		if [ ! -d ~/.nvm/ ]; then
 			echo -e "🟩 Instalando o Node (NVM)"
 			(curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash)
 			if [ "$?" -eq 0 ]; then
@@ -213,7 +215,6 @@
 				[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 				nvm install --lts
-
 				if [ "$?" -eq 0 ]; then
 					echo -e "✅ Node LTS instalado com sucesso"
 					corepack enable
@@ -229,13 +230,20 @@
 	function ConfigurarAngular() {
 		if [ ! -x "$(command -v ng)" ]; then
 			echo -e "🩸 Instalando a CLI do Angular"
-			# npm install -g @angular/cli  && echo -e "✅ Angular instalado com sucesso" || echo -e "❌ Falha ao instalar Angular"
+			npm install -g @angular/cli  && echo -e "✅ Angular instalado com sucesso" || echo -e "❌ Falha ao instalar Angular"
 		fi
 	}
 
 	function InstalarFontes() {
-		# Instalar fontes do diretório /Fontes globalmente
-		echo "Todo"
+		echo -e "🔠 Instalando fontes"
+		(mkdir "$HOME"/Downloads/Fontes && curl -L "$FONTES_URL" | tar xJf - -C "$HOME"/Downloads/Fontes)
+		if [ "$?" -eq 0 ]; then
+			echo -e "✅ Fontes baixadas com sucesso, instalando..."
+			(font-manager -i "$HOME"/Downloads/Fontes/* && fc-cache -rf && font-manager -u) && echo -e "✅ Fontes instaladas com sucesso" || echo -e "❌ Falha ao instalar Fontes"
+		else
+			echo -e "❌ Falha ao baixar arquivo de fontes, verifique os logs"
+		fi
+		rm -r "$HOME"/Downloads/Fontes
 	}
 
 	function InstalarScriptLmcEGeracaoDeCpf() {
