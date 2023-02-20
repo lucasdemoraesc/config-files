@@ -135,6 +135,7 @@
 				git config --global user.name "Lucas Moraes" && echo -e "➡️ user.name = \"Lucas Moraes\""
 				git config --global user.email "lucasdemoraesc@gmail.com" && echo -e "➡️ user.name = \"lucasdemoraesc@gmail.com\""
 				git config --global init.defaultBranch main && echo -e "➡️ init.defaultBranch = \"main\""
+				git config --global core.editor "vim" && echo -e "➡️ core.editor = \"vim\""
 			else
 				echo -e "❌ Falha ao instalar o Git"
 			fi
