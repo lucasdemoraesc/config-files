@@ -55,6 +55,7 @@
 		wget \
 		curl \
 		ttf-mscorefonts-installer \
+		apache2-utils \
 		xclip && echo -e "✅ Aplicativos oficiais instalados com sucesso" || echo -e "❌ Falha ao instalar aplicativos oficiais"
 	}
 
@@ -97,7 +98,7 @@
 
 	function InstalarVsCode() {
 		if [ ! -x "$(command -v code)" ]; then
-			echo "🧑‍💻 Instalando Google Chrome [PPA]"
+			echo "🧑‍💻 Instalando VS Code [PPA]"
 			sudo apt-get install software-properties-common apt-transport-https wget -y
 			wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
 			sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
@@ -259,6 +260,7 @@
 		echo -e "🎉 Execução concluída. Verifique os logs para garantir que todas as etapas foram executadas corretamente."
 		echo -e "Etapas manuais:"
 		echo -e "[ ] Configurar a tela de inicialização através do Grub Customizer"
+		echo -e "[ ] Remover partições do Windows da interface pelo app \"Discos\""
 		echo -e "[ ] Instalar e configurar as seguintes extensões:"
 		echo -e "\t[ ] Alphabetical App Grid"
 		echo -e "\t[ ] Clipboard Indicator"
