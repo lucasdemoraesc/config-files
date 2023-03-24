@@ -137,6 +137,9 @@
 				git config --global user.email "lucasdemoraesc@gmail.com" && echo -e "➡️ user.name = \"lucasdemoraesc@gmail.com\""
 				git config --global init.defaultBranch main && echo -e "➡️ init.defaultBranch = \"main\""
 				git config --global core.editor "vim" && echo -e "➡️ core.editor = \"vim\""
+				git config --global alias.cleanupremote '!git remote prune origin' && echo -e "➡️ alias.cleanupremote = \"Ok\""
+				git config --global alias.cleanuplocal '!git branch --merged | egrep -v "(^\*|master|main|dev)" | xargs git branch -d' && echo -e "➡️ alias.cleanuplocal = \"Ok\""
+				git config --global alias.cleanup '!git branch --merged | egrep -v "(^\*|master|main|dev)" | xargs git branch -d; git remote prune origin' && echo -e "➡️ alias.cleanup = \"Ok\""
 			else
 				echo -e "❌ Falha ao instalar o Git"
 			fi
