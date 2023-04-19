@@ -281,6 +281,10 @@
 		echo -e "[ ] Definir tema padrão do Guake: Thayer Bright"
 		echo -e "[ ] Em Configurações, atualizar preferencias de aparência, multitarefa e limpeza automática da lixeira (Menu \"Privacidade\")"
 		echo -e "[ ] Habilitar corepack no Node: corepack enable"
+		echo -e "[ ] Corrigir delay dos atalhos com a tecla FN (se estiver ocorrendo)"
+		echo -e "\t[ ] No arquivo: \"/usr/share/X11/xkb/symbols/br\""
+		echo -e "\t[ ] Comentar a linha: \"modifier_map Mod3 { Scroll_Lock };\""
+		echo -e "\t[ ] Após salvar executar o comando: \"setxkbmap\""
 		echo -e "[ ] Efetuar login em seus aplicativos"
 	}
 
