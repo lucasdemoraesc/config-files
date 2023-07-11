@@ -7,10 +7,17 @@
 	ZSHRC_URL="https://raw.githubusercontent.com/lucasdemoraesc/config-files/main/Linux/Zsh/.zshrc"
 	OH_MY_ZSH_DIR="$HOME/.oh-my-zsh"
 	ZINIT_DIR="$HOME/.local/share/zinit/"
+	ZSH_THEMES="$HOME/.oh-my-zsh/custom/themes"
+	SPACESHIP_DIR="$ZSH_THEMES/spaceship-prompt"
 	CHROME_URL="https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
 	VIMIX_URL="https://github.com/lucasdemoraesc/config-files/raw/main/Linux/Grub/Vimix-1080p.tar.xz"
 	DOTNET_INSTALL_URL="https://dot.net/v1/dotnet-install.sh"
 	FONTES_URL="https://github.com/lucasdemoraesc/config-files/raw/main/Fontes/Fontes.tar.xz"
+
+	function RecarregarProfile() {
+		echo "🔄 Recarregando bash profile"
+		source ~/.profile && echo -e "✅ Bash profile recarregado com sucesso\n" || echo -e "❌ Falha ao recarregar bash profile\n"
+	}
 
 	function RemoverProgramasInuteis() {
 		echo "🎠 Removendo aplicativos inúteis"
@@ -56,7 +63,9 @@
 		curl \
 		ttf-mscorefonts-installer \
 		apache2-utils \
+		gnome-shell-extension-manager \
 		xclip && echo -e "✅ Aplicativos oficiais instalados com sucesso" || echo -e "❌ Falha ao instalar aplicativos oficiais"
+		RecarregarProfile
 	}
 
 	function InstalarProgramasSnap() {
@@ -70,7 +79,6 @@
 		sudo snap install discord && echo -e "✅ Snap discord instalado" || echo -e "❌ Falha snap discord"
 		sudo snap install emote && echo -e "✅ Snap emote instalado" || echo -e "❌ Falha snap emote"
 		sudo snap install bitwarden && echo -e "✅ Snap bitwarden instalado" || echo -e "❌ Falha snap bitwarden"
-  		sudo snap install dbgate && echo -e "✅ Snap dbgate instalado" || echo -e "❌ Falha snap dbgate"
 		echo -e "✅ Pacotes finalizados"
 	}
 
@@ -119,12 +127,14 @@
 		if [ ! -e /usr/bin/dotnet-install ] && [ ! -x "$(command -v dotnet-install)" ]; then
 			echo -e "💎 Instalando Script Dotnet Install"
 			(sudo curl -L "$DOTNET_INSTALL_URL" -o /usr/bin/dotnet-install && sudo chmod +x /usr/bin/dotnet-install) && echo -e "✅ Script dotnet-install.sh instalado com sucesso" || echo -e "❌ Falha ao instalar script dotnet-install.sh"
+			RecarregarProfile
 		fi
 		if [ ! -x "$(command -v dotnet)" ]; then
 			echo -e "💎 Instalando Dotnet LTS (Long Term Support)"
 			dotnet-install --channel LTS && echo -e "✅ Dotnet LTS instalado com sucesso" || echo -e "❌ Falha ao instalar Dotnet LTS"
 			echo -e "💎 Instalando Dotnet STS (Standard Term Support)"
 			dotnet-install --channel STS && echo -e "✅ Dotnet STS instalado com sucesso" || echo -e "❌ Falha ao instalar Dotnet STS"
+			RecarregarProfile
 		fi
 	}
 
@@ -141,6 +151,7 @@
 				git config --global alias.cleanupremote '!git remote prune origin' && echo -e "➡️ alias.cleanupremote = \"Ok\""
 				git config --global alias.cleanuplocal '!git branch --merged | egrep -v "(^\*|master|main|dev)" | xargs git branch -d' && echo -e "➡️ alias.cleanuplocal = \"Ok\""
 				git config --global alias.cleanup '!git branch --merged | egrep -v "(^\*|master|main|dev)" | xargs git branch -d; git remote prune origin' && echo -e "➡️ alias.cleanup = \"Ok\""
+				RecarregarProfile;
 			else
 				echo -e "❌ Falha ao instalar o Git"
 			fi
@@ -207,6 +218,11 @@
 		if [ ! -d "$ZINIT_DIR" ]; then
 			echo -e "🐚 Instalando Zinit"
 			sh -c "$(curl -fsSL https://git.io/zinit-install)" && echo -e "✅ Zinit instalado com sucesso" || echo -e "❌ Falha ao instalar Zinit"
+		fi
+		if [ ! -d "$SPACESHIP_DIR" ]; then
+			echo -e "🌌 Baixando tema spaceship"
+			git clone https://github.com/denysdovhan/spaceship-prompt.git "$SPACESHIP_DIR" && echo -e "✅ Tema spaceship baixado com sucesso" || echo -e "❌ Falha ao baixar tema spaceship"
+			ln -s "$SPACESHIP_DIR/spaceship.zsh-theme" "$ZSH_THEMES/spaceship.zsh-theme"
 		fi
 	}
 
