@@ -27,6 +27,8 @@
 		gnome-mahjongg \
 		gnome-mines \
 		gnome-sudoku \
+		transmission-common \
+		transmission-gtk \
 		rhythmbox \
 		shotwell && echo -e "✅ Programas inúteis removidos com sucesso" || echo -e "❌ Falha ao remover programas inúteis"
 	}
