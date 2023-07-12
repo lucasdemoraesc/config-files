@@ -66,6 +66,7 @@
 		ttf-mscorefonts-installer \
 		apache2-utils \
 		gnome-shell-extension-manager \
+		libnss3-tools \
 		xclip && echo -e "✅ Aplicativos oficiais instalados com sucesso" || echo -e "❌ Falha ao instalar aplicativos oficiais"
 		RecarregarProfile
 	}
