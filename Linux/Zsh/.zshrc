@@ -190,3 +190,6 @@ setopt HIST_SAVE_NO_DUPS
 if [ -x "$(command -v ng)" ]; then
   source <(ng completion script)
 fi
+
+bindkey -M emacs '^H' backward-kill-word
+
