@@ -3,6 +3,7 @@
 (
 	CPF_URL="https://raw.githubusercontent.com/lucasdemoraesc/config-files/main/Linux/Scripts/cpf.sh"
 	LMC_URL="https://raw.githubusercontent.com/lucasdemoraesc/config-files/main/Linux/Scripts/lmc.sh"
+	TOGGLE_THEME_URL="https://raw.githubusercontent.com/lucasdemoraesc/config-files/main/Linux/Scripts/toggle-theme.sh"
 	BASHRC_URL="https://raw.githubusercontent.com/lucasdemoraesc/config-files/main/Linux/.bashrc"
 	ZSHRC_URL="https://raw.githubusercontent.com/lucasdemoraesc/config-files/main/Linux/Zsh/.zshrc"
 	OH_MY_ZSH_DIR="$HOME/.oh-my-zsh"
@@ -75,8 +76,6 @@
 		echo "📦️ Instalando pacotes snaps"
 		sudo snap install spotify && echo -e "✅ Snap spotify instalado" || echo -e "❌ Falha snap spotify"
 		sudo snap install dbeaver-ce && echo -e "✅ Snap dbeaver-ce instalado" || echo -e "❌ Falha snap dbeaver-ce"
-		sudo snap install lepton && echo -e "✅ Snap lepton instalado" || echo -e "❌ Falha snap lepton"
-		sudo snap install cacher && echo -e "✅ Snap cacher instalado" || echo -e "❌ Falha snap cacher"
 		sudo snap install telegram-desktop && echo -e "✅ Snap telegram-desktop instalado" || echo -e "❌ Falha snap telegram-desktop"
 		sudo snap install postman && echo -e "✅ Snap postman instalado" || echo -e "❌ Falha snap postman"
 		sudo snap install discord && echo -e "✅ Snap discord instalado" || echo -e "❌ Falha snap discord"
@@ -272,12 +271,15 @@
 		rm -r "$HOME"/Downloads/Fontes
 	}
 
-	function InstalarScriptLmcEGeracaoDeCpf() {
+	function InstalarScriptsPessoais() {
 		echo "📜 Instalando script cpf.sh"
 		(sudo curl -o /bin/cpf "$CPF_URL" --fail --show-error && sudo chmod +x /bin/cpf) && echo -e "✅ Script cpf instalado com sucesso" || echo -e "❌ Falha ao dar permissão para /bin/cpf"
 
 		echo "📜 Instalando script lmc.sh"
 		(sudo curl -o /bin/lmc "$LMC_URL" --fail --show-error && sudo chmod +x /bin/lmc) && echo -e "✅ Script lmc instalado com sucesso" || echo -e "❌ Falha ao dar permissão para /bin/lmc"
+
+		echo "📜 Instalando script toggle-theme.sh"
+		(sudo curl -o /bin/toggle-theme "$TOGGLE_THEME_URL" --fail --show-error && sudo chmod +x /bin/toggle-theme) && echo -e "✅ Script toggle-theme instalado com sucesso" || echo -e "❌ Falha ao dar permissão para /bin/toggle-theme"
 	}
 
 	function ExibirLembretesPosInstalacao() {
@@ -324,7 +326,6 @@
 	ConfigurarNode; echo -e "\n"
 	ConfigurarAngular; echo -e "\n"
 	InstalarFontes; echo -e "\n"
-	InstalarScriptLmcEGeracaoDeCpf; echo -e "\n"
+	InstalarScriptsPessoais; echo -e "\n"
 	ExibirLembretesPosInstalacao;
-
 ) 2>&1 | tee after-install.log
