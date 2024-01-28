@@ -1,10 +1,14 @@
 {
     "$help": "https://aka.ms/terminal-documentation",
     "$schema": "https://aka.ms/terminal-profiles-schema",
-    "actions": 
+    "actions":
     [
         {
-            "command": 
+            "command": "paste",
+            "keys": "ctrl+v"
+        },
+        {
+            "command":
             {
                 "action": "copy",
                 "singleLine": false
@@ -12,15 +16,11 @@
             "keys": "ctrl+c"
         },
         {
-            "command": "paste",
-            "keys": "ctrl+v"
-        },
-        {
             "command": "find",
             "keys": "ctrl+shift+f"
         },
         {
-            "command": 
+            "command":
             {
                 "action": "splitPane",
                 "split": "auto",
@@ -33,9 +33,9 @@
     "copyOnSelect": false,
     "defaultProfile": "{00000000-0000-0000-0000-000000012345}",
     "experimental.rendering.software": false,
-    "profiles": 
+    "profiles":
     {
-        "defaults": 
+        "defaults":
         {
             "antialiasingMode": "cleartype",
             "background": "#111111",
@@ -43,7 +43,7 @@
             "colorScheme": "Dracula",
             "cursorColor": "#FFFFFF",
             "cursorShape": "filledBox",
-            "font": 
+            "font":
             {
                 "face": "CodeNewRoman NF",
                 "size": 11,
@@ -55,9 +55,10 @@
             "snapOnInput": true,
             "useAcrylic": true
         },
-        "list": 
+        "list":
         [
             {
+                "colorScheme": "Dracula",
                 "commandline": "\"%PROGRAMFILES%\\git\\bin\\bash.exe\" --login -i -l",
                 "guid": "{00000000-0000-0000-0000-000000012345}",
                 "icon": "%PROGRAMFILES%\\git\\mingw64\\share\\git\\git-for-windows.ico",
@@ -66,7 +67,15 @@
                 "suppressApplicationTitle": true
             },
             {
-                "colorScheme": "Tomorrow Night Blue",
+                "colorScheme": "Campbell Powershell",
+                "experimental.retroTerminalEffect": false,
+                "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
+                "hidden": false,
+                "name": "PowerShell 7",
+                "source": "Windows.Terminal.PowershellCore"
+            },
+            {
+                "colorScheme": "Campbell Powershell",
                 "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
                 "hidden": false,
                 "name": "Windows PowerShell"
@@ -83,28 +92,20 @@
                 "source": "Windows.Terminal.Azure"
             },
             {
-                "colorScheme": "Vintage",
-                "guid": "{07b52e3e-de2c-5db4-bd2d-ba144ed6c273}",
-                "hidden": false,
-                "icon": "G:\\Meu Drive\\Backups\\Arquivos de configura\u00e7\u00e3o\\Windows\\WindowsTerminal\\ubuntu_32px.png",
-                "name": "Ubuntu-20.04",
-                "source": "Windows.Terminal.Wsl"
-            },
-            {
-                "guid": "{a6ac5146-692d-56d7-9575-7df1af329c7d}",
+                "guid": "{e657b9e4-d526-518a-812b-84f74d38d54f}",
                 "hidden": false,
                 "name": "Developer Command Prompt for VS 2022",
                 "source": "Windows.Terminal.VisualStudio"
             },
             {
-                "guid": "{9b8be3e2-608e-5391-af51-3e82c0182489}",
+                "guid": "{62632842-4cfa-544d-96ee-12a9e366d4aa}",
                 "hidden": false,
                 "name": "Developer PowerShell for VS 2022",
                 "source": "Windows.Terminal.VisualStudio"
             }
         ]
     },
-    "schemes": 
+    "schemes":
     [
         {
             "background": "#000000",
@@ -130,7 +131,7 @@
             "yellow": "#C19C00"
         },
         {
-            "background": "#012456",
+            "background": "#000840",
             "black": "#0C0C0C",
             "blue": "#0037DA",
             "brightBlack": "#767676",
@@ -498,6 +499,29 @@
             "yellow": "#C4A000"
         },
         {
+            "background": "#300A24",
+            "black": "#171421",
+            "blue": "#0037DA",
+            "brightBlack": "#767676",
+            "brightBlue": "#08458F",
+            "brightCyan": "#2C9FB3",
+            "brightGreen": "#26A269",
+            "brightPurple": "#A347BA",
+            "brightRed": "#C01C28",
+            "brightWhite": "#F2F2F2",
+            "brightYellow": "#A2734C",
+            "cursorColor": "#FFFFFF",
+            "cyan": "#3A96DD",
+            "foreground": "#FFFFFF",
+            "green": "#26A269",
+            "name": "Ubuntu-ColorScheme",
+            "purple": "#881798",
+            "red": "#C21A23",
+            "selectionBackground": "#FFFFFF",
+            "white": "#CCCCCC",
+            "yellow": "#A2734C"
+        },
+        {
             "background": "#000000",
             "black": "#000000",
             "blue": "#000080",
@@ -543,5 +567,6 @@
             "white": "#CCCCCC",
             "yellow": "#CDCD55"
         }
-    ]
+    ],
+    "useAcrylicInTabRow": true
 }

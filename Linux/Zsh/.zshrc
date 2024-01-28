@@ -160,9 +160,9 @@ export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 export PATH="$PATH:/home/lucas/.dotnet"
 export PATH="$PATH:/home/lucas/.dotnet/tools"
 export DOTNET_ROOT="$(dirname $(which dotnet))"
-export NVM_DIR="$HOME/.nvm"
 
 # VARIÁVEIS DO NVM
+export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
@@ -200,4 +200,3 @@ if [ -x "$(command -v ng)" ]; then
 fi
 
 bindkey -M emacs '^H' backward-kill-word
-
