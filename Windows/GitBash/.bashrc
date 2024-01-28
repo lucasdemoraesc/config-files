@@ -11,7 +11,7 @@ export HISTIGNORE="history:ls:pwd:cd ..:"
 stty -ixon
 
 # Oh my posh
-eval "$(oh-my-posh --init --shell bash --config "C:/Users/$USERNAME/scoop/apps/oh-my-posh/current/themes/custom.omp.json")"
+eval "$(oh-my-posh --init --shell bash --config "https://raw.githubusercontent.com/lucasdemoraesc/config-files/main/Windows/oh-my-posh/custom.omp.json")"
 
 # bash parameter completion for the dotnet CLI
 _dotnet_bash_complete()

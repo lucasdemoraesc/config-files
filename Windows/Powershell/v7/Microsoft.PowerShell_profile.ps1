@@ -1,4 +1,4 @@
-Invoke-Expression (oh-my-posh --init --shell pwsh --config "$(scoop prefix oh-my-posh)/themes/sonicboom_dark.omp.json")
+oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH/sonicboom_dark.omp.json" | Invoke-Expression
 Import-Module PSReadLine
 
 # PowerShell parameter completion shim for the dotnet CLI
