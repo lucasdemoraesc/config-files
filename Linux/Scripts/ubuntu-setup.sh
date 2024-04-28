@@ -31,6 +31,14 @@
 		transmission-common \
 		transmission-gtk \
 		rhythmbox \
+		libreoffice-style-breeze \
+		libreoffice-style-colibre \
+		libreoffice-style-elementary \
+		libreoffice-style-yaru \
+		libreoffice-base-core \
+		libreoffice-common \
+		libreoffice-gnome \
+		libreoffice-gtk3 \
 		shotwell && echo -e "✅ Programas inúteis removidos com sucesso" || echo -e "❌ Falha ao remover programas inúteis"
 	}
 
@@ -68,13 +76,14 @@
 		apache2-utils \
 		gnome-shell-extension-manager \
 		libnss3-tools \
+		syncthing \
+		gnome-startup-applications \
 		xclip && echo -e "✅ Aplicativos oficiais instalados com sucesso" || echo -e "❌ Falha ao instalar aplicativos oficiais"
 		RecarregarProfile
 	}
 
 	function InstalarProgramasSnap() {
 		echo "📦️ Instalando pacotes snaps"
-		sudo snap install spotify && echo -e "✅ Snap spotify instalado" || echo -e "❌ Falha snap spotify"
 		sudo snap install dbeaver-ce && echo -e "✅ Snap dbeaver-ce instalado" || echo -e "❌ Falha snap dbeaver-ce"
 		sudo snap install telegram-desktop && echo -e "✅ Snap telegram-desktop instalado" || echo -e "❌ Falha snap telegram-desktop"
 		sudo snap install postman && echo -e "✅ Snap postman instalado" || echo -e "❌ Falha snap postman"
@@ -82,6 +91,9 @@
 		sudo snap install emote && echo -e "✅ Snap emote instalado" || echo -e "❌ Falha snap emote"
 		sudo snap install bitwarden && echo -e "✅ Snap bitwarden instalado" || echo -e "❌ Falha snap bitwarden"
 		sudo snap install dbgate && echo -e "✅ Snap dbgate instalado" || echo -e "❌ Falha snap dbgate"
+		sudo snap install onlyoffice-desktopeditors && echo -e "✅ Onlyoffice instalado" || echo -e "❌ Falha snap onlyoffice-desktopeditors"
+		sudo snap install --classic obsidian && echo -e "✅ Obsidian instalado" || echo -e "❌ Falha snap obsidian"
+		sudo snap install --classic code && echo -e "✅ VS Code instalado" || echo -e "❌ Falha snap code"
 		echo -e "✅ Pacotes finalizados"
 	}
 
@@ -105,16 +117,6 @@
 			else
 				echo -e "❌ Falha ao instalar o Google Chrome, arquivo não baixado"
 			fi
-		fi
-	}
-
-	function InstalarVsCode() {
-		if [ ! -x "$(command -v code)" ]; then
-			echo "🧑‍💻 Instalando VS Code [PPA]"
-			sudo apt-get install software-properties-common apt-transport-https wget -y
-			wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
-			sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
-			sudo apt-get install code && echo -e "✅ VS Code instalado com sucesso" || echo -e "❌ Falha ao instalar VS Code"
 		fi
 	}
 
@@ -220,7 +222,7 @@
 		fi
 		if [ ! -d "$ZINIT_DIR" ]; then
 			echo -e "🐚 Instalando Zinit"
-			sh -c "$(curl -fsSL https://git.io/zinit-install)" && echo -e "✅ Zinit instalado com sucesso" || echo -e "❌ Falha ao instalar Zinit"
+			bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)" && echo -e "✅ Zinit instalado com sucesso" || echo -e "❌ Falha ao instalar Zinit"
 		fi
 		if [ ! -d "$SPACESHIP_DIR" ]; then
 			echo -e "🌌 Baixando tema spaceship"
@@ -286,18 +288,20 @@
 		echo -e "🎉 Execução concluída. Verifique os logs para garantir que todas as etapas foram executadas corretamente."
 		echo -e "Etapas manuais:"
 		echo -e "- [ ] Configurar a tela de inicialização através do Grub Customizer"
+		echo -e "- [ ] Configurar inicialização automática do Syncthing, comando: syncthing serve --no-browser --logfile=default"
 		echo -e "- [ ] Remover partições do Windows da interface pelo app \"Discos\""
 		echo -e "\t- [ ] Configurar lixeira para partições NTFS: https://askubuntu.com/a/1319280/1549502"
 		echo -e "- [ ] Instalar e configurar as seguintes extensões:"
 		echo -e "\t- [ ] Alphabetical App Grid"
 		echo -e "\t- [ ] Clipboard Indicator"
+		echo -e "\t- [ ] Current screen only on Window Switcher"
 		echo -e "\t- [ ] Places Status Indicator"
 		echo -e "\t- [ ] User Themes X"
 		echo -e "- [ ] Configurar os atalhos:"
 		echo -e "\t- [ ] Novo: \"Emote\" -> emote -> [Super + .]"
 		echo -e "\t- [ ] Novo: \"Guake\" -> guake -t -> [F12] (Na aplicação Guake, desabilitar o atalho F12 padrão)"
 		echo -e "\t- [ ] Novo: \"Nautilus\" -> nautilus -w -> [Super + E]"
-		echo -e "\t- [ ] Novo: \"Toggle theme\" -> nautilus -w -> [Ctrl + Super + T]"
+		echo -e "\t- [ ] Novo: \"Toggle theme\" -> toggle-theme -> [Ctrl + Super + T]"
 		echo -e "\t- [ ] Alterar: \"Mostrar a lista de notificações\" -> [Desabilitado]"
 		echo -e "\t- [ ] Alterar: \"Fazer uma captura de tela\" -> [Print]"
 		echo -e "\t- [ ] Alterar: \"Fazer uma captura de tela de uma janela\" -> [Super + Print]"
@@ -310,6 +314,7 @@
 		echo -e "\t- [ ] Comentar a linha: \"modifier_map Mod3 { Scroll_Lock };\""
 		echo -e "\t- [ ] Após salvar executar o comando: \"setxkbmap\""
 		echo -e "- [ ] Efetuar login em seus aplicativos"
+		echo -e "- [ ] Configurar Obsidian (Testar snap instalado)"
 	}
 
 	RemoverProgramasInuteis; echo -e "\n"
@@ -318,7 +323,6 @@
 	InstalarProgramasSnap; echo -e "\n"
 	InstalarGrupCustomizer; echo -e "\n"
 	InstalarGoogleChrome; echo -e "\n"
-	InstalarVsCode; echo -e "\n"
 	ConfiguracoesBasicas; echo -e "\n"
 	ConfigurarDotnet; echo -e "\n"
 	ConfigurarGit; echo -e "\n"
