@@ -297,6 +297,7 @@
 		echo -e "\t- [ ] Current screen only on Window Switcher"
 		echo -e "\t- [ ] Places Status Indicator"
 		echo -e "\t- [ ] User Themes X"
+  		echo -e "\t- [ ] Color Picker"
 		echo -e "- [ ] Configurar os atalhos:"
 		echo -e "\t- [ ] Novo: \"Emote\" -> emote -> [Super + .]"
 		echo -e "\t- [ ] Novo: \"Guake\" -> guake -t -> [F12] (Na aplicação Guake, desabilitar o atalho F12 padrão)"
