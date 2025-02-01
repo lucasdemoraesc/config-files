@@ -22,7 +22,7 @@
 
 	function RemoverProgramasInuteis() {
 		echo "🎠 Removendo aplicativos inúteis"
-		sudo apt-get purge --remove \
+		sudo apt purge --remove \
 		aisleriot \
 		gnome-font-viewer \
 		gnome-mahjongg \
@@ -92,7 +92,6 @@
 		sudo snap install bitwarden && echo -e "✅ Snap bitwarden instalado" || echo -e "❌ Falha snap bitwarden"
 		sudo snap install dbgate && echo -e "✅ Snap dbgate instalado" || echo -e "❌ Falha snap dbgate"
 		sudo snap install onlyoffice-desktopeditors && echo -e "✅ Onlyoffice instalado" || echo -e "❌ Falha snap onlyoffice-desktopeditors"
-		sudo snap install --classic obsidian && echo -e "✅ Obsidian instalado" || echo -e "❌ Falha snap obsidian"
 		sudo snap install --classic code && echo -e "✅ VS Code instalado" || echo -e "❌ Falha snap code"
 		echo -e "✅ Pacotes finalizados"
 	}
@@ -153,6 +152,8 @@
 				git config --global user.email "lucasdemoraesc@gmail.com" && echo -e "➡️ user.name = \"lucasdemoraesc@gmail.com\""
 				git config --global init.defaultBranch main && echo -e "➡️ init.defaultBranch = \"main\""
 				git config --global core.editor "vim" && echo -e "➡️ core.editor = \"vim\""
+				git config --global core.autocrlf "false" && echo -e "➡️ core.autocrlf \"false\""
+				git config --global core.eol "lf" && echo -e "➡️ core.eol \"lf\""
 				git config --global alias.cleanupremote '!git remote prune origin' && echo -e "➡️ alias.cleanupremote = \"Ok\""
 				git config --global alias.cleanuplocal '!git branch --merged | egrep -v "(^\*|master|main|dev)" | xargs git branch -d' && echo -e "➡️ alias.cleanuplocal = \"Ok\""
 				git config --global alias.cleanup '!git branch --merged | egrep -v "(^\*|master|main|dev)" | xargs git branch -d; git remote prune origin' && echo -e "➡️ alias.cleanup = \"Ok\""
@@ -192,11 +193,9 @@
 			sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 			if [ "$?" -eq 0 ]; then
 				echo "🐳 Docker instalado com sucesso"
-				if [ ! "$(getent group docker)" ]; then
-					sudo groupadd docker
-					sudo usermod -aG docker "$USER"
-					newgrp docker
-				fi
+				sudo groupadd docker
+				sudo usermod -aG docker "$USER"
+				newgrp docker
 				echo "📦️ Subindo container do Portainer"
 				sudo docker run -d -p 9000:9000 --name portainer --restart always -v /var/run/docker.sock:/var/run/docker.sock -v /home/lucas/.portainer/data:/data portainer/portainer-ce:latest
 				echo "📦️ Subindo container do Postgres"
@@ -219,10 +218,12 @@
 		if [ ! -d "$OH_MY_ZSH_DIR" ]; then
 			echo -e "🐚 Instalando Oh My ZSH"
 			sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" && echo -e "✅ Oh My ZSH instalado com sucesso" || echo -e "❌ Falha ao instalar Oh My ZSH"
+			curl -L "$ZSHRC_URL" -o ~/.zshrc && echo -e "✅ .zshrc atualizado com sucesso" || echo -e "❌ Falha ao atualizar .zshrc"
 		fi
 		if [ ! -d "$ZINIT_DIR" ]; then
 			echo -e "🐚 Instalando Zinit"
 			bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)" && echo -e "✅ Zinit instalado com sucesso" || echo -e "❌ Falha ao instalar Zinit"
+			curl -L "$ZSHRC_URL" -o ~/.zshrc && echo -e "✅ .zshrc atualizado com sucesso" || echo -e "❌ Falha ao atualizar .zshrc"
 		fi
 		if [ ! -d "$SPACESHIP_DIR" ]; then
 			echo -e "🌌 Baixando tema spaceship"
@@ -322,7 +323,7 @@
 	AtualizarPacotes; echo -e "\n"
 	InstalarProgramasRepoOficial; echo -e "\n"
 	InstalarProgramasSnap; echo -e "\n"
-	InstalarGrupCustomizer; echo -e "\n"
+	#InstalarGrupCustomizer; echo -e "\n"
 	InstalarGoogleChrome; echo -e "\n"
 	ConfiguracoesBasicas; echo -e "\n"
 	ConfigurarDotnet; echo -e "\n"

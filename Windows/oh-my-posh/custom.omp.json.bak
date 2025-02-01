@@ -1,0 +1,122 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "blocks": [
+    {
+      "alignment": "left",
+      "segments": [
+        {
+          "foreground": "#E06C75",
+          "properties": {
+            "root_icon": "root",
+            "template": "\uf0e7 <#ffffff>in</> "
+          },
+          "style": "plain",
+          "type": "root"
+        },
+        {
+          "foreground": "#00d6d6",
+          "properties": {
+            "fetch_version": false,
+            "template": "[\ue77f]{{ if .Unsupported }}\uf071{{ else }}{{ .Full }}{{ end }} "
+          },
+          "style": "plain",
+          "type": "dotnet"
+        },
+        {
+          "foreground": "#98C379",
+          "properties": {
+            "fetch_version": false,
+            "template": "[\ue781]{{ if .PackageManagerIcon }}{{ .PackageManagerIcon }} {{ end }}{{ .Full }} "
+          },
+          "style": "plain",
+          "type": "node"
+        },
+        {
+          "foreground": "#d13d3d",
+          "properties": {
+            "fetch_version": false,
+            "template": "[\ue738]{{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }} "
+          },
+          "style": "plain",
+          "type": "java"
+        },
+        {
+          "foreground": "#ffe551",
+          "properties": {
+            "template": "[\ue235]{{ if .Error }}{{ .Error }}{{ else }}{{ if .Venv }}{{ .Venv }} {{ end }}{{ .Full }}{{ end }} "
+          },
+          "style": "plain",
+          "type": "python"
+        },
+        {
+          "foreground": "#55B9C4",
+          "properties": {
+            "style": "folder",
+            "template": "{{ .Path }} "
+          },
+          "style": "plain",
+          "type": "path"
+        },
+        {
+          "foreground": "#C678DD",
+          "properties": {
+            "fetch_status": true,
+            "template": "<#ffffff>on</> {{ .HEAD }} {{ .BranchStatus }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Staging.Changed) (.Working.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0}} \uf692 {{ .StashCount }}{{ end }}{{ if gt .WorktreeCount 0}} \uf1bb {{ .WorktreeCount }}{{ end }} "
+          },
+          "style": "plain",
+          "type": "git"
+        },
+        {
+          "foreground": "#0cbe4e",
+          "properties": {
+            "paused_icon": "\uf8e3 ",
+            "playing_icon": "\ue602 ",
+            "stopped_icon": "\uf04d ",
+            "template": "<#ffffff>listening</> \uf9c6 {{ .Icon }}{{ if ne .Status \"stopped\" }}{{ .Artist }} - {{ .Track }}{{ end }} ",
+            "track_separator": " - "
+          },
+          "style": "plain",
+          "type": "spotify"
+        },
+        {
+          "foreground": "#dbb405",
+          "properties": {
+            "style": "austin",
+            "template": "<#dbb405>\ufa1a</> {{ .FormattedMs }} ",
+            "threshold": 500
+          },
+          "style": "plain",
+          "type": "executiontime"
+        },
+        {
+          "foreground": "#C94A16",
+          "properties": {
+            "template": "x{{ if gt .Code 0 }}\uf00d{{ else }}\uf42e{{ end }} "
+          },
+          "style": "plain",
+          "type": "exit"
+        }
+      ],
+      "type": "prompt"
+    },
+    {
+      "type": "newline"
+    },
+    {
+      "alignment": "left",
+      "segments": [
+        {
+          "foreground": "#63F08C",
+          "properties": {
+            "template": "\u279c"
+          },
+          "style": "plain",
+          "type": "text"
+        }
+      ],
+      "type": "prompt"
+    }
+  ],
+  "final_space": true,
+  "version": 1
+}

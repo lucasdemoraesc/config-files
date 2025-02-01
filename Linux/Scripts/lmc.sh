@@ -34,9 +34,13 @@ CLEAN() {
 	sudo apt-get -f install
 	sudo apt-get -y autoclean
 	sudo apt-get -y clean
-	sudo apt-get autoremove "$(deborphan)"
-	sudo deborphan | xargs sudo apt-get -y remove
-	sudo deborphan --guess-data | xargs sudo apt-get -y remove
+	#sudo apt-get autoremove "$(deborphan)"
+	#sudo deborphan | xargs sudo apt-get remove --purge
+	#sudo deborphan --guess-data | xargs sudo apt-get remove --purge
+	echo "🚧 Executado sem deborphan devido a erros na resolução de dependências."
+	echo "sudo apt-get autoremove \"\$(deborphan)\""
+	echo "sudo deborphan | xargs sudo apt-get remove --purge"
+	echo "sudo deborphan --guess-data | xargs sudo apt-get remove --purge"
 }
 
 UP() {
