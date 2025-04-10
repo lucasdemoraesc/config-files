@@ -11,7 +11,6 @@
 	ZSH_THEMES="$HOME/.oh-my-zsh/custom/themes"
 	SPACESHIP_DIR="$ZSH_THEMES/spaceship-prompt"
 	CHROME_URL="https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
-	VIMIX_URL="https://github.com/lucasdemoraesc/config-files/raw/main/Linux/Grub/Vimix-1080p.tar.xz"
 	DOTNET_INSTALL_URL="https://dot.net/v1/dotnet-install.sh"
 	FONTES_URL="https://github.com/lucasdemoraesc/config-files/raw/main/Fontes/Fontes.tar.xz"
 
@@ -94,17 +93,6 @@
 		sudo snap install onlyoffice-desktopeditors && echo -e "✅ Onlyoffice instalado" || echo -e "❌ Falha snap onlyoffice-desktopeditors"
 		sudo snap install --classic code && echo -e "✅ VS Code instalado" || echo -e "❌ Falha snap code"
 		echo -e "✅ Pacotes finalizados"
-	}
-
-	function InstalarGrupCustomizer() {
-		if [ ! -x "$(command -v grub-customizer)" ]; then
-			echo "💥 Instalando Grub Customizer [PPA]"
-			sudo add-apt-repository ppa:danielrichter2007/grub-customizer
-			sudo apt-get update
-			sudo apt-get install grub-customizer && echo -e "✅ Grub Customizer instalado com sucesso" || echo -e "❌ Falha ao instalar Grub Customizer"
-			echo "Baixando tema Vimix..."
-			(curl -L "$VIMIX_URL" | sudo tar xJf - -C /boot/grub/themes/) && echo -e "✅ Vimix baixado e adicionado à pasta /boot/grub/themes" || echo -e "❌ Falha ao baixar tema Vimix"
-		fi
 	}
 
 	function InstalarGoogleChrome() {
@@ -288,7 +276,6 @@
 	function ExibirLembretesPosInstalacao() {
 		echo -e "🎉 Execução concluída. Verifique os logs para garantir que todas as etapas foram executadas corretamente."
 		echo -e "Etapas manuais:"
-		echo -e "- [ ] Configurar a tela de inicialização através do Grub Customizer"
 		echo -e "- [ ] Configurar inicialização automática do Syncthing, comando: syncthing serve --no-browser --logfile=default"
 		echo -e "- [ ] Remover partições do Windows da interface pelo app \"Discos\""
 		echo -e "\t- [ ] Configurar lixeira para partições NTFS: https://askubuntu.com/a/1319280/1549502"
@@ -323,7 +310,6 @@
 	AtualizarPacotes; echo -e "\n"
 	InstalarProgramasRepoOficial; echo -e "\n"
 	InstalarProgramasSnap; echo -e "\n"
-	#InstalarGrupCustomizer; echo -e "\n"
 	InstalarGoogleChrome; echo -e "\n"
 	ConfiguracoesBasicas; echo -e "\n"
 	ConfigurarDotnet; echo -e "\n"

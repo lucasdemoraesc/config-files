@@ -200,3 +200,10 @@ if [ -x "$(command -v ng)" ]; then
 fi
 
 bindkey -M emacs '^H' backward-kill-word
+
+export PATH=/home/lucas/.local/bin:$PATH
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+# proto
+export PROTO_HOME="$HOME/.proto";
+export PATH="$PROTO_HOME/shims:$PROTO_HOME/bin:$PATH";
