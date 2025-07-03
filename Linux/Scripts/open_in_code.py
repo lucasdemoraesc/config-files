@@ -1,6 +1,6 @@
 # Instruções:
 # 1. Instale a extensão do Nautilus para Python:
-#    sudo apt install nautilus-python
+#    sudo apt install python3-nautilus
 # 2. Salve este script em ~/.local/share/nautilus-python/extensions/open_in_code.py
 # 3. Dê permissão de execução:
 #    chmod +x ~/.local/share/nautilus-python/extensions/open_in_code.py
