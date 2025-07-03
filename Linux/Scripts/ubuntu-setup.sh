@@ -84,12 +84,10 @@
 	function InstalarProgramasSnap() {
 		echo "📦️ Instalando pacotes snaps"
 		sudo snap install dbeaver-ce && echo -e "✅ Snap dbeaver-ce instalado" || echo -e "❌ Falha snap dbeaver-ce"
-		sudo snap install telegram-desktop && echo -e "✅ Snap telegram-desktop instalado" || echo -e "❌ Falha snap telegram-desktop"
 		sudo snap install postman && echo -e "✅ Snap postman instalado" || echo -e "❌ Falha snap postman"
 		sudo snap install discord && echo -e "✅ Snap discord instalado" || echo -e "❌ Falha snap discord"
 		sudo snap install emote && echo -e "✅ Snap emote instalado" || echo -e "❌ Falha snap emote"
 		sudo snap install bitwarden && echo -e "✅ Snap bitwarden instalado" || echo -e "❌ Falha snap bitwarden"
-		sudo snap install dbgate && echo -e "✅ Snap dbgate instalado" || echo -e "❌ Falha snap dbgate"
 		sudo snap install onlyoffice-desktopeditors && echo -e "✅ Onlyoffice instalado" || echo -e "❌ Falha snap onlyoffice-desktopeditors"
 		sudo snap install --classic code && echo -e "✅ VS Code instalado" || echo -e "❌ Falha snap code"
 		echo -e "✅ Pacotes finalizados"
@@ -304,6 +302,7 @@
 		echo -e "\t- [ ] Após salvar executar o comando: \"setxkbmap\""
 		echo -e "- [ ] Efetuar login em seus aplicativos"
 		echo -e "- [ ] Configurar Obsidian (Testar snap instalado)"
+		echo -e "- [ ] Configurar o script de menu de contexto do Nautilus"
 	}
 
 	RemoverProgramasInuteis; echo -e "\n"
