@@ -1,3 +1,13 @@
+# Instruções:
+# 1. Instale a extensão do Nautilus para Python:
+#    sudo apt install nautilus-python
+# 2. Salve este script em ~/.local/share/nautilus-python/extensions/open_in_code.py
+# 3. Dê permissão de execução:
+#    chmod +x ~/.local/share/nautilus-python/extensions/open_in_code.py
+# 4. Reinicie o Nautilus:
+#    nautilus -q
+
+
 # Extensão para abrir diretórios no VS Code através do menu de contexto do Nautilus
 import os
 from typing import List
