@@ -159,12 +159,8 @@ export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 # VARIÁVEIS DO DOTNET
 export PATH="$PATH:/home/lucas/.dotnet"
 export PATH="$PATH:/home/lucas/.dotnet/tools"
-export DOTNET_ROOT="$(dirname $(which dotnet))"
-
-# VARIÁVEIS DO NVM
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export DOTNET_ROOT="$(mise where dotnet)"
+#export DOTNET_ROOT="$(dirname $(which dotnet))"
 
 # zsh parameter completion for the dotnet CLI
 _dotnet_zsh_complete()
@@ -200,10 +196,14 @@ if [ -x "$(command -v ng)" ]; then
 fi
 
 bindkey -M emacs '^H' backward-kill-word
+alias ai="ollama run llama3"
 
 export PATH=/home/lucas/.local/bin:$PATH
+
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
-# proto
-export PROTO_HOME="$HOME/.proto";
-export PATH="$PROTO_HOME/shims:$PROTO_HOME/bin:$PATH";
+# Go gRPC protoc
+export PATH="$PATH:$(go env GOPATH)/bin"
+
+# Mise
+eval "$(mise activate zsh)"

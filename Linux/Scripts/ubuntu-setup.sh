@@ -229,8 +229,6 @@
 			echo "deb [signed-by=/etc/apt/keyrings/mise-archive-keyring.pub arch=amd64] https://mise.jdx.dev/deb stable main" | sudo tee /etc/apt/sources.list.d/mise.list
 			sudo apt update
 			sudo apt install -y mise
-			echo 'eval "$(mise activate zsh)"' >> ~/.zshrc
-			echo 'eval "$(mise activate bash)"' >> ~/.bashrc
 			if [ "$?" -eq 0 ]; then
 				echo -e "✅ Mise instalado com sucesso"
 			else
