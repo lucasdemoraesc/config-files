@@ -3,15 +3,15 @@
 (
 	CPF_URL="https://raw.githubusercontent.com/lucasdemoraesc/config-files/main/Linux/Scripts/cpf.sh"
 	LMC_URL="https://raw.githubusercontent.com/lucasdemoraesc/config-files/main/Linux/Scripts/lmc.sh"
-	TOGGLE_THEME_URL="https://raw.githubusercontent.com/lucasdemoraesc/config-files/main/Linux/Scripts/toggle-theme.sh"
+	OPEN_WITH_CODE_URL="https://raw.githubusercontent.com/lucasdemoraesc/config-files/refs/heads/main/Linux/Scripts/open_in_code.py"
 	BASHRC_URL="https://raw.githubusercontent.com/lucasdemoraesc/config-files/main/Linux/.bashrc"
 	ZSHRC_URL="https://raw.githubusercontent.com/lucasdemoraesc/config-files/main/Linux/Zsh/.zshrc"
 	OH_MY_ZSH_DIR="$HOME/.oh-my-zsh"
 	ZINIT_DIR="$HOME/.local/share/zinit/"
 	ZSH_THEMES="$HOME/.oh-my-zsh/custom/themes"
 	SPACESHIP_DIR="$ZSH_THEMES/spaceship-prompt"
+	NAUTILUS_EXTENSIONS_DIR="$HOME/.local/share/nautilus-python/extensions"
 	CHROME_URL="https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
-	DOTNET_INSTALL_URL="https://dot.net/v1/dotnet-install.sh"
 	FONTES_URL="https://github.com/lucasdemoraesc/config-files/raw/main/Fontes/Fontes.tar.xz"
 
 	function RecarregarProfile() {
@@ -65,7 +65,6 @@
 		nautilus-extension-gnome-terminal \
 		nautilus-sendto \
 		nautilus-share \
-		deborphan \
 		htop \
 		font-manager \
 		vlc \
@@ -75,7 +74,8 @@
 		apache2-utils \
 		gnome-shell-extension-manager \
 		libnss3-tools \
-		syncthing \
+		python3-nautilus \
+		gnome-boxes \
 		gnome-startup-applications \
 		xclip && echo -e "✅ Aplicativos oficiais instalados com sucesso" || echo -e "❌ Falha ao instalar aplicativos oficiais"
 		RecarregarProfile
@@ -114,17 +114,17 @@
 	}
 
 	function ConfigurarDotnet() {
-		if [ ! -e /usr/bin/dotnet-install ] && [ ! -x "$(command -v dotnet-install)" ]; then
-			echo -e "💎 Instalando Script Dotnet Install"
-			(sudo curl -L "$DOTNET_INSTALL_URL" -o /usr/bin/dotnet-install && sudo chmod +x /usr/bin/dotnet-install) && echo -e "✅ Script dotnet-install.sh instalado com sucesso" || echo -e "❌ Falha ao instalar script dotnet-install.sh"
-			RecarregarProfile
-		fi
-		if [ ! -x "$(command -v dotnet)" ]; then
-			echo -e "💎 Instalando Dotnet LTS (Long Term Support)"
-			dotnet-install --channel LTS && echo -e "✅ Dotnet LTS instalado com sucesso" || echo -e "❌ Falha ao instalar Dotnet LTS"
-			echo -e "💎 Instalando Dotnet STS (Standard Term Support)"
-			dotnet-install --channel STS && echo -e "✅ Dotnet STS instalado com sucesso" || echo -e "❌ Falha ao instalar Dotnet STS"
-			RecarregarProfile
+		InstalarMise
+		if [ -x "$(command -v mise)" ]; then
+			echo -e "💎 Instalando Dotnet LTS (Mise)"
+			mise use -g dotnet@latest
+			if [ "$?" -eq 0 ]; then
+				echo -e "✅ Dotnet LTS instalado com sucesso"
+			else
+				echo -e "❌ Falha ao instalar Dotnet LTS"
+			fi
+		else
+			echo -e "❌ Mise não encontrado, pulando instalação do Dotnet"
 		fi
 	}
 
@@ -179,7 +179,9 @@
 			sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 			if [ "$?" -eq 0 ]; then
 				echo "🐳 Docker instalado com sucesso"
-				sudo groupadd docker
+				if ! getent group docker > /dev/null; then
+					sudo groupadd docker
+				fi
 				sudo usermod -aG docker "$USER"
 				newgrp docker
 				echo "📦️ Subindo container do Portainer"
@@ -218,26 +220,37 @@
 		fi
 	}
 
-	function ConfigurarNode() {
-		if [ ! -d ~/.nvm/ ]; then
-			echo -e "🟩 Instalando o Node (NVM)"
-			(curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash)
+	function InstalarMise() {
+		if [ ! -x "$(command -v mise)" ]; then
+			echo -e "💽 Instalando Mise"
+			sudo apt update -y && sudo apt install -y curl
+			sudo install -dm 755 /etc/apt/keyrings
+			curl -fSs https://mise.jdx.dev/gpg-key.pub | sudo tee /etc/apt/keyrings/mise-archive-keyring.pub 1> /dev/null
+			echo "deb [signed-by=/etc/apt/keyrings/mise-archive-keyring.pub arch=amd64] https://mise.jdx.dev/deb stable main" | sudo tee /etc/apt/sources.list.d/mise.list
+			sudo apt update
+			sudo apt install -y mise
+			echo 'eval "$(mise activate zsh)"' >> ~/.zshrc
+			echo 'eval "$(mise activate bash)"' >> ~/.bashrc
 			if [ "$?" -eq 0 ]; then
-				echo -e "✅ NVM instalado com sucesso, carregando..."
-				export NVM_DIR="$HOME/.nvm"
-				[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-				[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-				nvm install --lts
-				if [ "$?" -eq 0 ]; then
-					echo -e "✅ Node LTS instalado com sucesso"
-					corepack enable
-				else
-					echo -e "❌ Falha ao instalar Node LTS"
-				fi
+				echo -e "✅ Mise instalado com sucesso"
 			else
-				echo -e "❌ Falha ao instalar NVM"
+				echo -e "❌ Falha ao instalar Mise"
 			fi
+		fi
+	}
+
+	function ConfigurarNode() {
+		InstalarMise
+		if [ -x "$(command -v mise)" ]; then
+			echo -e "🟩 Instalando o Node (Mise)"
+			mise use -g node@lts
+			if [ "$?" -eq 0 ]; then
+				echo -e "✅ Node LTS instalado com sucesso"
+			else
+				echo -e "❌ Falha ao instalar Node LTS"
+			fi
+		else
+			echo -e "❌ Mise não encontrado, pulando instalação do Node"
 		fi
 	}
 
@@ -267,8 +280,9 @@
 		echo "📜 Instalando script lmc.sh"
 		(sudo curl -o /bin/lmc "$LMC_URL" --fail --show-error && sudo chmod +x /bin/lmc) && echo -e "✅ Script lmc instalado com sucesso" || echo -e "❌ Falha ao dar permissão para /bin/lmc"
 
-		echo "📜 Instalando script toggle-theme.sh"
-		(sudo curl -o /bin/toggle-theme "$TOGGLE_THEME_URL" --fail --show-error && sudo chmod +x /bin/toggle-theme) && echo -e "✅ Script toggle-theme instalado com sucesso" || echo -e "❌ Falha ao dar permissão para /bin/toggle-theme"
+		echo echo "📜 Configurando open_with_code.py"
+		mkdir -p $NAUTILUS_EXTENSIONS_DIR
+		(sudo curl -o $NAUTILUS_EXTENSIONS_DIR/open_in_code.py "$OPEN_WITH_CODE_URL" --fail --show-error && sudo chmod +x $NAUTILUS_EXTENSIONS_DIR/open_in_code.py) && echo -e "✅ open_with_code.py instalado com sucesso" || echo -e "❌ Falha ao dar permissão para open_with_code.py"
 	}
 
 	function ExibirLembretesPosInstalacao() {
@@ -288,7 +302,6 @@
 		echo -e "\t- [ ] Novo: \"Emote\" -> emote -> [Super + .]"
 		echo -e "\t- [ ] Novo: \"Guake\" -> guake -t -> [F12] (Na aplicação Guake, desabilitar o atalho F12 padrão)"
 		echo -e "\t- [ ] Novo: \"Nautilus\" -> nautilus -w -> [Super + E]"
-		echo -e "\t- [ ] Novo: \"Toggle theme\" -> toggle-theme -> [Ctrl + Super + T]"
 		echo -e "\t- [ ] Alterar: \"Mostrar a lista de notificações\" -> [Desabilitado]"
 		echo -e "\t- [ ] Alterar: \"Fazer uma captura de tela\" -> [Print]"
 		echo -e "\t- [ ] Alterar: \"Fazer uma captura de tela de uma janela\" -> [Super + Print]"
